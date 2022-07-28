@@ -26,6 +26,17 @@ Enter the environment:
 vagrant ssh
 ```
 
+Test executing a container:
+
+```powershell
+nerdctl run --rm ruilopes/example-docker-buildx-go:v1.6.0
+```
+
+# Caveats
+
+* There is no support for building Windows containers because `buildkitd` is not available for Windows.
+  * See https://github.com/moby/buildkit/issues/616
+
 # Troubleshoot
 
 * See the [Microsoft Troubleshooting guide](https://docs.microsoft.com/en-us/virtualization/windowscontainers/troubleshooting) and the [CleanupContainerHostNetworking](https://github.com/Microsoft/Virtualization-Documentation/tree/live/windows-server-container-tools/CleanupContainerHostNetworking) page.
