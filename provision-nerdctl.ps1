@@ -34,6 +34,15 @@ Remove-Item $archivePath
 # add nerdctl to the current process PATH.
 $env:PATH += ";$env:ProgramFiles\nerdctl"
 
+Write-Host 'Installing powershell completion...'
+if (!(Test-Path "$env:USERPROFILE\Documents\WindowsPowerShell")) {
+    mkdir "$env:USERPROFILE\Documents\WindowsPowerShell" | Out-Null
+}
+Add-Content `
+    -Encoding ascii `
+    -Path "$env:USERPROFILE\Documents\WindowsPowerShell\Microsoft.PowerShell_profile.ps1" `
+    -Value 'nerdctl completion powershell | Out-String | Invoke-Expression'
+
 Write-Title 'nerdctl version'
 nerdctl version
 
