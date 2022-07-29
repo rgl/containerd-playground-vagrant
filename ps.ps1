@@ -90,6 +90,13 @@ function choco {
     Start-Choco $Args
 }
 
+function nerdctl {
+    nerdctl.exe @Args | Out-String -Stream -Width ([int]::MaxValue)
+    if ($LASTEXITCODE) {
+        throw "$(@('nerdctl')+$Args | ConvertTo-Json -Compress) failed with exit code $LASTEXITCODE"
+    }
+}
+
 function docker {
     docker.exe @Args | Out-String -Stream -Width ([int]::MaxValue)
     if ($LASTEXITCODE) {
