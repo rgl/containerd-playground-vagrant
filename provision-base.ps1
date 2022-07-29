@@ -47,6 +47,14 @@ Set-ItemProperty -Path 'HKCU:Control Panel\Desktop' -Name WallpaperStyle -Value 
 Set-ItemProperty -Path 'HKCU:Control Panel\Desktop' -Name TileWallpaper -Value 0
 Set-ItemProperty -Path 'HKCU:Control Panel\Colors' -Name Background -Value ($backgroundColor.R,$backgroundColor.G,$backgroundColor.B -join ' ')
 
+# set the lock screen background.
+Copy-Item $backgroundPath C:\Windows\Web\Screen
+New-Item -Path HKLM:Software\Policies\Microsoft\Windows\Personalization -Force `
+    | New-ItemProperty -Name LockScreenImage -Value C:\Windows\Web\Screen\containerd.png `
+    | New-ItemProperty -Name PersonalColors_Background -Value '#1e1e1e' `
+    | New-ItemProperty -Name PersonalColors_Accent -Value '#007acc' `
+    | Out-Null
+
 # replace notepad with notepad3.
 choco install -y notepad3
 
