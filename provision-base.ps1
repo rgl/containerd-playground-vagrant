@@ -33,7 +33,19 @@ New-Item -Path HKCU:Software\Microsoft\Windows\CurrentVersion\Explorer\CabinetSt
     | Out-Null
 
 # set the desktop background.
-Set-ItemProperty -Path 'HKCU:Control Panel\Colors' -Name Background -Value '30 30 30'
+Add-Type -AssemblyName System.Drawing
+$backgroundColor = [System.Drawing.Color]::FromArgb(30, 30, 30)
+$backgroundPath = 'C:\Windows\Web\Wallpaper\Windows\containerd.png'
+$logo = [System.Drawing.Image]::FromFile((Resolve-Path 'containerd.png'))
+$b = New-Object System.Drawing.Bitmap($logo.Width, $logo.Height)
+$g = [System.Drawing.Graphics]::FromImage($b)
+$g.Clear($backgroundColor)
+$g.DrawImage($logo, 0, 0, $logo.Width, $logo.Height)
+$b.Save($backgroundPath)
+Set-ItemProperty -Path 'HKCU:Control Panel\Desktop' -Name Wallpaper -Value $backgroundPath
+Set-ItemProperty -Path 'HKCU:Control Panel\Desktop' -Name WallpaperStyle -Value 0
+Set-ItemProperty -Path 'HKCU:Control Panel\Desktop' -Name TileWallpaper -Value 0
+Set-ItemProperty -Path 'HKCU:Control Panel\Colors' -Name Background -Value ($backgroundColor.R,$backgroundColor.G,$backgroundColor.B -join ' ')
 
 # replace notepad with notepad3.
 choco install -y notepad3
