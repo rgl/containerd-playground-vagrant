@@ -133,8 +133,8 @@ function Write-Title($title) {
     Write-Output "#`n# $title`n#"
 }
 
-cd c:/vagrant
+Set-Location c:/vagrant
 $script = Resolve-Path $script
-cd (Split-Path $script -Parent)
+Set-Location (Split-Path $script -Parent)
 Write-Host "Running $script..."
 . $script @scriptArguments
