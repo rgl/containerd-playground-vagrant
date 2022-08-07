@@ -3,9 +3,9 @@
 # see https://github.com/containerd/containerd/blob/main/docs/man/containerd-config.toml.5.md
 
 # download install the containerd binaries.
-$archiveVersion = '1.6.6'
+$archiveVersion = '1.6.7'
 $archiveUrl = "https://github.com/containerd/containerd/releases/download/v$archiveVersion/cri-containerd-$archiveVersion-windows-amd64.tar.gz"
-$archiveHash = '84845a64e9d92c1210f4d1ca9640c04b2730b4f71240f39c8d1a4b7ad5f1c8f6'
+$archiveHash = '59dc2d16129f9706b7e73b3fbe6f4761474540938afc23ea2c1c46840e0121c9'
 $archiveName = Split-Path -Leaf $archiveUrl
 $archivePath = "$env:TEMP\$archiveName"
 Write-Host "Installing containerd $archiveVersion..."
@@ -38,7 +38,8 @@ $env:PATH += ";$env:ProgramFiles\containerd"
 
 # configure.
 containerd config default `
-    | Out-File -Encoding ascii "$env:ProgramFiles\containerd\config.toml"
+    | Out-String `
+    | Out-File -NoNewline -Encoding ascii "$env:ProgramFiles\containerd\config.toml"
 
 # install the containerd service.
 containerd --register-service
