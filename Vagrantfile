@@ -76,6 +76,7 @@ Vagrant.configure("2") do |config|
     config.vm.provision "shell", path: "provision-runc.sh"
     config.vm.provision "shell", path: "provision-cni-plugins.sh"
     config.vm.provision "shell", path: "provision-containerd.sh", args: [CONFIG_REGISTRY_DOMAIN]
+    config.vm.provision "shell", path: "provision-cri-tools.sh"
     config.vm.provision "shell", path: "provision-buildkit.sh"
     config.vm.provision "shell", path: "provision-nerdctl.sh"
     config.vm.provision "shell", path: "provision-registry.sh", args: [CONFIG_REGISTRY_DOMAIN]
@@ -107,6 +108,7 @@ Vagrant.configure("2") do |config|
     config.vm.provision "shell", path: "ps.ps1", args: "provision-base.ps1"
     config.vm.provision "shell", path: "ps.ps1", args: "provision-git.ps1"
     config.vm.provision "shell", path: "ps.ps1", args: "provision-containerd.ps1"
+    config.vm.provision "shell", path: "ps.ps1", args: "provision-cri-tools.ps1"
     config.vm.provision "shell", path: "ps.ps1", args: "provision-nerdctl.ps1"
     config.vm.provision "shell", path: "ps.ps1", args: "provision-crane.ps1"
     config.vm.provision "shell", path: "ps.ps1", args: "provision-regctl.ps1"
