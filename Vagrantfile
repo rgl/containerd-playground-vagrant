@@ -72,9 +72,11 @@ Vagrant.configure("2") do |config|
     config.vm.network "private_network", ip: VM_LINUX_IP_ADDRESS, libvirt__forward_mode: "none", libvirt__dhcp_enabled: false, hyperv__bridge: VM_HYPERV_SWITCH_NAME
     config.vm.provision "shell", path: "configure-hyperv-guest.sh", args: [VM_LINUX_IP_ADDRESS]
     config.vm.provision "shell", path: "provision-base.sh"
+    config.vm.provision "shell", path: "provision-certificate.sh", args: [CONFIG_REGISTRY_DOMAIN]
     config.vm.provision "shell", path: "provision-runc.sh"
     config.vm.provision "shell", path: "provision-cni-plugins.sh"
     config.vm.provision "shell", path: "provision-containerd.sh", args: [CONFIG_REGISTRY_DOMAIN]
+    config.vm.provision "shell", path: "provision-registry.sh", args: [CONFIG_REGISTRY_DOMAIN]
   end
 
   config.vm.define :windows do |config|
@@ -94,11 +96,13 @@ Vagrant.configure("2") do |config|
     config.vm.provision "shell", path: "configure-hyperv-guest.ps1", args: [VM_WINDOWS_IP_ADDRESS]
     config.vm.provision "shell", path: "ps.ps1", args: "provision-containers-feature.ps1"
     config.vm.provision "reload"
+    config.vm.provision "shell", path: "ps.ps1", args: "provision-certificate.ps1"
     config.vm.provision "shell", path: "ps.ps1", args: "provision-chocolatey.ps1"
     config.vm.provision "shell", path: "ps.ps1", args: "provision-base.ps1"
     config.vm.provision "shell", path: "ps.ps1", args: "provision-git.ps1"
     config.vm.provision "shell", path: "ps.ps1", args: "provision-containerd.ps1"
     config.vm.provision "shell", path: "ps.ps1", args: "provision-nerdctl.ps1"
+    config.vm.provision "shell", path: "ps.ps1", args: ["provision-registry-login.ps1", CONFIG_REGISTRY_DOMAIN]
     config.vm.provision "shell", path: "ps.ps1", args: "provision-example-docker-buildx-go-container.ps1"
     config.vm.provision "shell", path: "ps.ps1", args: "summary.ps1"
   end
