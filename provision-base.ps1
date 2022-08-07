@@ -60,6 +60,7 @@ choco install -y notepad3
 
 # install useful tools.
 choco install -y processhacker
+choco install -y procmon
 choco install -y firefox --params 'l=en-US'
 choco install -y SetDefaultBrowser
 SetDefaultBrowser @((SetDefaultBrowser | Where-Object {$_ -like 'HKLM Firefox-*'}) -split ' ')
