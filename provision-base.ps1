@@ -55,6 +55,25 @@ New-Item -Path HKLM:Software\Policies\Microsoft\Windows\Personalization -Force `
     | New-ItemProperty -Name PersonalColors_Accent -Value '#007acc' `
     | Out-Null
 
+# set account picture.
+$accountSid = [Security.Principal.WindowsIdentity]::GetCurrent().User.Value
+$accountPictureBasePath = "C:\Users\Public\AccountPictures\$accountSid"
+$accountRegistryKeyPath = "HKLM:SOFTWARE\Microsoft\Windows\CurrentVersion\AccountPicture\Users\$accountSid"
+mkdir $accountPictureBasePath | Out-Null
+New-Item $accountRegistryKeyPath | Out-Null
+# NB we are resizing the same image for all the resolutions, but for better
+#    results, you should use images with different resolutions.
+Add-Type -AssemblyName System.Drawing
+$accountImage = [System.Drawing.Image]::FromFile("c:\vagrant\vagrant.png")
+32,40,48,96,192,240,448 | ForEach-Object {
+    $p = "$accountPictureBasePath\Image$($_).jpg"
+    $i = New-Object System.Drawing.Bitmap($_, $_)
+    $g = [System.Drawing.Graphics]::FromImage($i)
+    $g.DrawImage($accountImage, 0, 0, $_, $_)
+    $i.Save($p)
+    New-ItemProperty -Path $accountRegistryKeyPath -Name "Image$_" -Value $p -Force | Out-Null
+}
+
 # replace notepad with notepad3.
 choco install -y notepad3
 
