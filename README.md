@@ -1,10 +1,12 @@
 # About
 
-This is a containerd on Windows Server 2019 (1809) Vagrant environment for playing with Windows containers.
+This is a containerd on Ubuntu and Windows Server 2019 (1809) Vagrant environment for playing with Windows containers.
 
 For Docker on Windows Server 2019 (1809) see the [rgl/docker-windows-2019-vagrant](https://github.com/rgl/docker-windows-2019-vagrant) repository.
 
 # Usage
+
+Install the [Base Ubuntu 22.04 Box](https://github.com/rgl/ubuntu-vagrant).
 
 Install the [Base Windows Server 2019 Box](https://github.com/rgl/windows-vagrant).
 
@@ -12,6 +14,9 @@ Install the required plugins:
 
 ```bash
 vagrant plugin install vagrant-reload
+# see https://github.com/hashicorp/vagrant/issues/12445#issuecomment-876566065
+export CFLAGS='-I/opt/vagrant/embedded/include/ruby-3.0.0/ruby'
+vagrant plugin install vagrant-hosts
 ```
 
 Then launch the environment:

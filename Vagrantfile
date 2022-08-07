@@ -1,13 +1,17 @@
-# this is required to be able to configure the hyper-v vm.
-ENV['VAGRANT_EXPERIMENTAL'] = 'typed_triggers'
+ENV["VAGRANT_NO_PARALLEL"]  = "yes"
+ENV['VAGRANT_EXPERIMENTAL'] = "typed_triggers"
 
 CONFIG_DNS_DOMAIN      = "test"
+CONFIG_REGISTRY_DOMAIN = "registry.#{CONFIG_DNS_DOMAIN}"
 
+VM_LINUX_MEMORY_MB   = 2*1024
 VM_WINDOWS_MEMORY_MB = 5*1024
 
+VM_LINUX_CPUS   = 4
 VM_WINDOWS_CPUS = 4
 
-VM_WINDOWS_IP_ADDRESS = "10.0.0.3"
+VM_LINUX_IP_ADDRESS   = "10.0.0.3"
+VM_WINDOWS_IP_ADDRESS = "10.0.0.4"
 
 VM_HYPERV_SWITCH_NAME = "docker-windows"
 
@@ -48,6 +52,29 @@ Vagrant.configure("2") do |config|
         )
       end
     end
+  end
+
+  config.vm.provision "hosts" do |hosts|
+    hosts.autoconfigure = true
+    hosts.sync_hosts = true
+    hosts.add_localhost_hostnames = false
+    hosts.add_host VM_LINUX_IP_ADDRESS, [CONFIG_REGISTRY_DOMAIN]
+  end
+
+  config.vm.define :linux do |config|
+    config.vm.box = "ubuntu-22.04-amd64"
+    config.vm.hostname = "linux"
+    config.vm.provider "libvirt" do |lv, config|
+      lv.memory = VM_LINUX_MEMORY_MB
+      lv.cpus = VM_LINUX_CPUS
+      config.vm.synced_folder ".", "/vagrant", type: "nfs", nfs_version: "4.2", nfs_udp: false
+    end
+    config.vm.network "private_network", ip: VM_LINUX_IP_ADDRESS, libvirt__forward_mode: "none", libvirt__dhcp_enabled: false, hyperv__bridge: VM_HYPERV_SWITCH_NAME
+    config.vm.provision "shell", path: "configure-hyperv-guest.sh", args: [VM_LINUX_IP_ADDRESS]
+    config.vm.provision "shell", path: "provision-base.sh"
+    config.vm.provision "shell", path: "provision-runc.sh"
+    config.vm.provision "shell", path: "provision-cni-plugins.sh"
+    config.vm.provision "shell", path: "provision-containerd.sh", args: [CONFIG_REGISTRY_DOMAIN]
   end
 
   config.vm.define :windows do |config|
