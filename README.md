@@ -17,7 +17,7 @@ vagrant plugin install vagrant-reload
 Then launch the environment:
 
 ```bash
-vagrant up --provider=virtualbox # or --provider=libvirt
+vagrant up --provider=libvirt --no-destroy-on-error --no-tty
 ```
 
 Enter the environment:
