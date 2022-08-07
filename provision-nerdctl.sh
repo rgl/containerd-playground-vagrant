@@ -22,3 +22,13 @@ ln -s /usr/local/bin/nerdctl /usr/local/bin/docker # YMMV
 
 # install the bash completion script.
 nerdctl completion bash >/usr/share/bash-completion/completions/nerdctl
+
+# kick the tires.
+# NB you can see all the networks with nerdctl network ls.
+nerdctl build --progress plain --tag ncktt --file - . <<'EOF'
+FROM busybox
+RUN echo 'nerdctl build: Hello World!'
+EOF
+nerdctl inspect ncktt
+nerdctl run --network host --rm ncktt echo 'nerdctl run: Hello World!'
+nerdctl image rm ncktt
