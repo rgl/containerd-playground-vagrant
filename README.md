@@ -29,7 +29,7 @@ vagrant ssh
 Test executing a container:
 
 ```powershell
-nerdctl run --rm ruilopes/example-docker-buildx-go:v1.6.0
+nerdctl run --rm ruilopes/example-docker-buildx-go:v1.10.0
 ```
 
 # Caveats
