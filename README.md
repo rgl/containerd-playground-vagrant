@@ -48,6 +48,16 @@ ctr image pull docker.io/ruilopes/example-docker-buildx-go:v1.10.0
 ctr run --cni --rm docker.io/ruilopes/example-docker-buildx-go:v1.10.0 test
 ```
 
+Test executing a nanoserver container with `nerdctl`:
+
+```powershell
+nerdctl run --rm mcr.microsoft.com/windows/nanoserver:1809 cmd /c ver
+nerdctl run --rm mcr.microsoft.com/windows/nanoserver:1809 cmd /c set
+# NB nerdctl cannot yet connect to the network. see the caveats bellow.
+nerdctl run --rm mcr.microsoft.com/windows/nanoserver:1809 cmd /c ipconfig /all
+nerdctl run --rm mcr.microsoft.com/windows/nanoserver:1809 cmd /c curl https://httpbin.org/user-agent
+```
+
 Test executing a multi-platform image container with `nerdctl`:
 
 ```powershell
@@ -56,8 +66,11 @@ nerdctl run --rm ruilopes/example-docker-buildx-go:v1.10.0
 
 # Caveats
 
+* There is no support for networking in `nerdctl` (but there is in `ctr`).
+  * See https://github.com/containerd/nerdctl/issues/559
 * There is no support for building Windows containers because `buildkitd` is not available for Windows.
   * See https://github.com/moby/buildkit/issues/616
+* See all the known Windows issues at https://github.com/containerd/nerdctl/labels/platform%2FWindows.
 
 # Troubleshoot
 
