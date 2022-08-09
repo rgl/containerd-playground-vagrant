@@ -78,6 +78,7 @@ nerdctl run --rm ruilopes/example-docker-buildx-go:v1.10.0
 
 # References
 
+* [Tech Community Windows Server Containers News](https://techcommunity.microsoft.com/t5/containers/bg-p/Containers)
 * [Using Insider Container Images](https://docs.microsoft.com/en-us/virtualization/windowscontainers/quick-start/using-insider-container-images)
 * [Beyond \ - the path to Windows and Linux parity in Docker (DockerCon 17)](https://www.youtube.com/watch?v=4ZY_4OeyJsw)
 * [The Internals Behind Bringing Docker & Containers to Windows (DockerCon 16)](https://www.youtube.com/watch?v=85nCF5S8Qok)
