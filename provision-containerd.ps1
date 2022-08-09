@@ -1,11 +1,11 @@
-# see https://github.com/containerd/containerd
+# see https://github.com/containerd/containerd/releases
 # see https://github.com/containerd/containerd/blob/main/docs/getting-started.md#installing-containerd-on-windows
 # see https://github.com/containerd/containerd/blob/main/docs/man/containerd-config.toml.5.md
 
 # download install the containerd binaries.
-$archiveVersion = '1.6.7'
+$archiveVersion = '1.6.8'
 $archiveUrl = "https://github.com/containerd/containerd/releases/download/v$archiveVersion/cri-containerd-$archiveVersion-windows-amd64.tar.gz"
-$archiveHash = '59dc2d16129f9706b7e73b3fbe6f4761474540938afc23ea2c1c46840e0121c9'
+$archiveHash = '200110c918fec35c0994ff4778080879b468d9741083de4a23431e4a23f2a160'
 $archiveName = Split-Path -Leaf $archiveUrl
 $archivePath = "$env:TEMP\$archiveName"
 
