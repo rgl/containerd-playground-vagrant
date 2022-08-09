@@ -25,10 +25,10 @@ Then launch the environment:
 vagrant up --provider=libvirt --no-destroy-on-error --no-tty
 ```
 
-Enter the environment:
+Enter the `windows` virtual machine:
 
 ```bash
-vagrant ssh
+vagrant ssh windows
 ```
 
 Test executing a container:
