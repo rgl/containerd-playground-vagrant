@@ -31,7 +31,24 @@ Enter the `windows` virtual machine:
 vagrant ssh windows
 ```
 
-Test executing a container:
+Test executing a `nanoserver` container with `ctr`:
+
+```powershell
+ctr image pull mcr.microsoft.com/windows/nanoserver:1809
+ctr run --cni --rm mcr.microsoft.com/windows/nanoserver:1809 test cmd /c ver
+ctr run --cni --rm mcr.microsoft.com/windows/nanoserver:1809 test cmd /c set
+ctr run --cni --rm mcr.microsoft.com/windows/nanoserver:1809 test ipconfig /all
+ctr run --cni --rm mcr.microsoft.com/windows/nanoserver:1809 test curl https://httpbin.org/user-agent
+```
+
+Test executing a multi-platform image container with `ctr`:
+
+```powershell
+ctr image pull docker.io/ruilopes/example-docker-buildx-go:v1.10.0
+ctr run --cni --rm docker.io/ruilopes/example-docker-buildx-go:v1.10.0 test
+```
+
+Test executing a multi-platform image container with `nerdctl`:
 
 ```powershell
 nerdctl run --rm ruilopes/example-docker-buildx-go:v1.10.0

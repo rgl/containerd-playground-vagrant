@@ -8,12 +8,15 @@ $archiveUrl = "https://github.com/containerd/containerd/releases/download/v$arch
 $archiveHash = '59dc2d16129f9706b7e73b3fbe6f4761474540938afc23ea2c1c46840e0121c9'
 $archiveName = Split-Path -Leaf $archiveUrl
 $archivePath = "$env:TEMP\$archiveName"
-Write-Host "Installing containerd $archiveVersion..."
+
+Write-Host "Downloading containerd $archiveVersion..."
 (New-Object System.Net.WebClient).DownloadFile($archiveUrl, $archivePath)
 $archiveActualHash = (Get-FileHash $archivePath -Algorithm SHA256).Hash
 if ($archiveActualHash -ne $archiveHash) {
     throw "the $archiveUrl file hash $archiveActualHash does not match the expected $archiveHash"
 }
+
+Write-Host "Installting containerd..."
 if (Get-Service -ErrorAction SilentlyContinue containerd) {
     Stop-Service containerd
     sc.exe delete containerd | Out-Null
@@ -28,6 +31,26 @@ if ($LASTEXITCODE) {
 }
 Remove-Item $archivePath
 
+# for ctr to work, symlink c:\etc\cni\net.d and c:\opt\cni\bin to the
+# containerd installation.
+# NB this is required until https://github.com/containerd/go-cni/pull/103 lands in ctr.
+if (Test-Path c:\etc\cni) {
+    Remove-Item -Recurse -Force c:\etc\cni
+}
+mkdir c:\etc\cni | Out-Null
+New-Item -ItemType SymbolicLink `
+    -Path c:\etc\cni\net.d `
+    -Target "$env:ProgramFiles\containerd\cni\conf" `
+    | Out-Null
+if (Test-Path c:\opt\cni) {
+    Remove-Item -Recurse -Force c:\opt\cni
+}
+mkdir c:\opt\cni | Out-Null
+New-Item -ItemType SymbolicLink `
+    -Path c:\opt\cni\bin `
+    -Target "$env:ProgramFiles\containerd\cni\bin" `
+    | Out-Null
+
 # add containerd to the Machine PATH.
 [Environment]::SetEnvironmentVariable(
     'PATH',
@@ -37,11 +60,41 @@ Remove-Item $archivePath
 $env:PATH += ";$env:ProgramFiles\containerd"
 
 # configure.
+Write-Host 'Configuring containerd...'
 containerd config default `
     | Out-String `
     | Out-File -NoNewline -Encoding ascii "$env:ProgramFiles\containerd\config.toml"
 
+# configure the cni nat network to route via the vagrant management interface.
+Write-Host 'Configuring the cni nat network...'
+$masterNetAdapter = @(Get-NetAdapter -Physical | Sort-Object Name | Get-NetIPAddress)[0]
+$master = $masterNetAdapter.InterfaceAlias
+$subnet = "172.16.0.0/16" 
+$gateway = "172.16.0.1"
+Write-Host "Creating the nat network $subnet (via $master)..."
+Set-Content -NoNewline -Encoding ascii -Path "$env:ProgramFiles\containerd\cni\conf\0-containerd-nat.conf" -Value @"
+{
+    "cniVersion": "0.2.0",
+    "name": "nat",
+    "type": "nat",
+    "master": "$master",
+    "ipam": {
+        "subnet": "$subnet",
+        "routes": [
+            {
+                "gateway": "$gateway"
+            }
+        ]
+    },
+    "capabilities": {
+        "portMappings": true,
+        "dns": true
+    }
+}
+"@
+
 # install the containerd service.
+Write-Host 'Installing the containerd service...'
 containerd --register-service
 if ($LASTEXITCODE) {
     throw "failed to register the containerd service with exit code $LASTEXITCODE"
