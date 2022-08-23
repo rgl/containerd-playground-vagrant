@@ -1,5 +1,5 @@
 ENV["VAGRANT_NO_PARALLEL"]  = "yes"
-ENV['VAGRANT_EXPERIMENTAL'] = "typed_triggers"
+ENV["VAGRANT_EXPERIMENTAL"] = "typed_triggers"
 
 CONFIG_DNS_DOMAIN      = "test"
 CONFIG_REGISTRY_DOMAIN = "registry.#{CONFIG_DNS_DOMAIN}"
@@ -69,6 +69,14 @@ Vagrant.configure("2") do |config|
       lv.cpus = VM_LINUX_CPUS
       config.vm.synced_folder ".", "/vagrant", type: "nfs", nfs_version: "4.2", nfs_udp: false
     end
+    config.vm.provider "hyperv" do |hv, config|
+      hv.memory = VM_LINUX_MEMORY_MB
+      hv.cpus = VM_LINUX_CPUS
+      config.vm.synced_folder ".", "/vagrant",
+        type: "smb",
+        smb_username: ENV["VAGRANT_SMB_USERNAME"] || ENV["USER"],
+        smb_password: ENV["VAGRANT_SMB_PASSWORD"]
+    end
     config.vm.network "private_network", ip: VM_LINUX_IP_ADDRESS, libvirt__forward_mode: "none", libvirt__dhcp_enabled: false, hyperv__bridge: VM_HYPERV_SWITCH_NAME
     config.vm.provision "shell", path: "configure-hyperv-guest.sh", args: [VM_LINUX_IP_ADDRESS]
     config.vm.provision "shell", path: "provision-base.sh"
@@ -92,13 +100,17 @@ Vagrant.configure("2") do |config|
     config.vm.provider "libvirt" do |lv, config|
       lv.memory = VM_WINDOWS_MEMORY_MB
       lv.cpus = VM_WINDOWS_CPUS
-      # copy the files from host to guest.
-      # NB this is required because docker build does not work over the SMB share.
-      config.vm.synced_folder ".", "/vagrant", type: "rsync", rsync__exclude: [
-        ".vagrant/",
-        ".git/",
-        "*.box"]
     end
+    config.vm.provider "hyperv" do |hv, config|
+      hv.memory = VM_WINDOWS_MEMORY_MB
+      hv.cpus = VM_WINDOWS_CPUS
+    end
+    # copy the files from host to guest.
+    # NB this is required because docker build does not work over the SMB share.
+    config.vm.synced_folder ".", "/vagrant", type: "rsync", rsync__exclude: [
+      ".vagrant/",
+      ".git/",
+      "*.box"]
     config.vm.network "private_network", ip: VM_WINDOWS_IP_ADDRESS, libvirt__forward_mode: "none", libvirt__dhcp_enabled: false, hyperv__bridge: VM_HYPERV_SWITCH_NAME
     config.vm.provision "shell", path: "configure-hyperv-guest.ps1", args: [VM_WINDOWS_IP_ADDRESS]
     config.vm.provision "shell", path: "ps.ps1", args: "provision-containers-feature.ps1"
