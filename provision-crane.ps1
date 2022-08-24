@@ -1,4 +1,4 @@
-# see https://github.com/google/go-containerregistry
+# see https://github.com/google/go-containerregistry/releases
 
 # download install the binaries.
 $archiveVersion = '0.11.0'
