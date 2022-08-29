@@ -1,16 +1,11 @@
 # download.
 # see https://github.com/kubernetes-sigs/cri-tools/releases
-$archiveVersion = '1.24.2'
+$archiveVersion = '1.25.0'
 $archiveUrl = "https://github.com/kubernetes-sigs/cri-tools/releases/download/v$archiveVersion/crictl-v$archiveVersion-windows-amd64.tar.gz"
-$archiveHash = 'db202de544fb49ffc58d1aa4b574dfaed0aeb71c45a542715b42f7b739ff7394'
 $archiveName = Split-Path -Leaf $archiveUrl
 $archivePath = "$env:TEMP\$archiveName"
 Write-Host "Downloading cri-tools from $archiveUrl..."
 (New-Object System.Net.WebClient).DownloadFile($archiveUrl, $archivePath)
-$archiveActualHash = (Get-FileHash $archivePath -Algorithm SHA256).Hash
-if ($archiveActualHash -ne $archiveHash) {
-    throw "the $archiveUrl file hash $archiveActualHash does not match the expected $archiveHash"
-}
 
 # install.
 Write-Host "Installing cri-tools..."
