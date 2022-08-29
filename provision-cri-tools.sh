@@ -22,4 +22,5 @@ tar xf $tgz -C /usr/local/bin
 rm -f $tgz
 
 # try.
-crictl version
+crictl --version # the client side version.
+crictl version   # the server side version.
