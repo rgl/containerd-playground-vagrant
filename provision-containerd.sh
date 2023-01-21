@@ -11,6 +11,7 @@ registry_url="https://$registry_host"
 # see https://github.com/containerd/containerd/blob/main/docs/man/containerd-config.toml.5.md
 # see https://github.com/containerd/containerd/blob/main/docs/ops.md
 # see https://github.com/containerd/containerd/blob/main/containerd.service
+# renovate: datasource=github-releases depName=containerd/containerd
 containerd_version='1.6.8'
 containerd_url="https://github.com/containerd/containerd/releases/download/v${containerd_version}/containerd-${containerd_version}-linux-amd64.tar.gz"
 containerd_service_url="https://github.com/containerd/containerd/raw/v${containerd_version}/containerd.service"

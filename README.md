@@ -64,6 +64,13 @@ Test executing a multi-platform image container with `nerdctl`:
 nerdctl run --rm ruilopes/example-docker-buildx-go:v1.10.0
 ```
 
+List this repository dependencies (and which have newer versions):
+
+```bash
+export GITHUB_COM_TOKEN='YOUR_GITHUB_PERSONAL_TOKEN'
+./renovate.sh
+```
+
 # Caveats
 
 * There is no support for networking in `nerdctl` (but there is in `ctr`).

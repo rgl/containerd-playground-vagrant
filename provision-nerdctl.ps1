@@ -1,6 +1,7 @@
 # see https://github.com/containerd/nerdctl/releases
 
 # download install the binaries.
+# renovate: datasource=github-releases depName=containerd/nerdctl
 $archiveVersion = '0.22.2'
 $archiveUrl = "https://github.com/containerd/nerdctl/releases/download/v$archiveVersion/nerdctl-$archiveVersion-windows-amd64.tar.gz"
 $archiveHash = 'dd8df86e5de7c769f368360828bc3d62b0ed4e5133661afee5b6c495fd236e38'

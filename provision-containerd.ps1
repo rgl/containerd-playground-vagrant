@@ -3,6 +3,7 @@
 # see https://github.com/containerd/containerd/blob/main/docs/man/containerd-config.toml.5.md
 
 # download install the containerd binaries.
+# renovate: datasource=github-releases depName=containerd/containerd
 $archiveVersion = '1.6.8'
 $archiveUrl = "https://github.com/containerd/containerd/releases/download/v$archiveVersion/cri-containerd-$archiveVersion-windows-amd64.tar.gz"
 $archiveHash = '200110c918fec35c0994ff4778080879b468d9741083de4a23431e4a23f2a160'

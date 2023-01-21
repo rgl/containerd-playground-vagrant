@@ -3,6 +3,7 @@ set -euxo pipefail
 
 # download.
 # see https://github.com/containernetworking/plugins/releases
+# renovate: datasource=github-releases depName=containernetworking/plugins
 cni_plugins_version='1.1.1'
 cni_plugins_url="https://github.com/containernetworking/plugins/releases/download/v${cni_plugins_version}/cni-plugins-linux-amd64-v${cni_plugins_version}.tgz"
 tgz="/tmp/cni_plugins-${cni_plugins_version}.tgz"

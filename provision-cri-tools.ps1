@@ -1,5 +1,6 @@
 # download.
 # see https://github.com/kubernetes-sigs/cri-tools/releases
+# renovate: datasource=github-releases depName=kubernetes-sigs/cri-tools
 $archiveVersion = '1.25.0'
 $archiveUrl = "https://github.com/kubernetes-sigs/cri-tools/releases/download/v$archiveVersion/crictl-v$archiveVersion-windows-amd64.tar.gz"
 $archiveName = Split-Path -Leaf $archiveUrl

@@ -2,6 +2,7 @@
 shared/
 obj/
 bin/
+tmp/
 tmp-*
 secrets*
 *.exe

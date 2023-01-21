@@ -1,6 +1,7 @@
 # see https://github.com/google/go-containerregistry/releases
 
 # download install the binaries.
+# renovate: datasource=github-releases depName=google/go-containerregistry
 $archiveVersion = '0.11.0'
 $archiveUrl = "https://github.com/google/go-containerregistry/releases/download/v$archiveVersion/go-containerregistry_Windows_x86_64.tar.gz"
 $archiveHash = '050d928e37872e97692614287a1c3c2147a3011c1faa0f7b9f815ea633610fd7'

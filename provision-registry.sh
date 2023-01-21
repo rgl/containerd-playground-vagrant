@@ -4,6 +4,8 @@ set -euxo pipefail
 registry_domain="${1:-registry.test}"; shift || true
 registry_host="$registry_domain:5000"
 registry_url="https://$registry_host"
+# renovate: datasource=docker depName=registry
+registry_image_version='2.8.1'
 registry_image='registry:2.8.1' # see https://hub.docker.com/_/registry
 registry_username='vagrant'
 registry_password='vagrant'
