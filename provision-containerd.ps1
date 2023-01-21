@@ -70,7 +70,7 @@ containerd config default `
 Write-Host 'Configuring the cni nat network...'
 $masterNetAdapter = @(Get-NetAdapter -Physical | Sort-Object Name | Get-NetIPAddress)[0]
 $master = $masterNetAdapter.InterfaceAlias
-$subnet = "172.16.0.0/16" 
+$subnet = "172.16.0.0/16"
 $gateway = "172.16.0.1"
 Write-Host "Creating the nat network $subnet (via $master)..."
 Set-Content -NoNewline -Encoding ascii -Path "$env:ProgramFiles\containerd\cni\conf\0-containerd-nat.conf" -Value @"
@@ -111,9 +111,9 @@ Write-Output $windowsVersion
 
 Write-Title 'windows BuildLabEx version'
 # BuildLabEx is something like:
-#      17763.1.amd64fre.rs5_release.180914-1434
-#      ^^^^^^^ ^^^^^^^^ ^^^^^^^^^^^ ^^^^^^ ^^^^
-#      build   platform branch      date   time (redmond tz)
+#      20348.1.amd64fre.fe_release.210507-1500
+#      ^^^^^^^ ^^^^^^^^ ^^^^^^^^^^ ^^^^^^ ^^^^
+#      build   platform branch     date   time (redmond tz)
 # see https://channel9.msdn.com/Blogs/One-Dev-Minute/Decoding-Windows-Build-Numbers
 (Get-ItemProperty -Path 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion' -Name BuildLabEx).BuildLabEx
 

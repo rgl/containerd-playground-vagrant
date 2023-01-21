@@ -95,7 +95,7 @@ Vagrant.configure("2") do |config|
   end
 
   config.vm.define :windows do |config|
-    config.vm.box = "windows-2019-amd64"
+    config.vm.box = "windows-2022-amd64"
     config.vm.hostname = "windows"
     config.vm.provider "libvirt" do |lv, config|
       lv.memory = VM_WINDOWS_MEMORY_MB

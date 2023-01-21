@@ -1,14 +1,14 @@
 # About
 
-This is a containerd on Ubuntu and Windows Server 2019 (1809) Vagrant environment for playing with Windows containers.
+This is a containerd on Ubuntu and Windows Server 2022 Vagrant environment for playing with Windows containers.
 
-For Docker on Windows Server 2019 (1809) see the [rgl/docker-windows-2019-vagrant](https://github.com/rgl/docker-windows-2019-vagrant) repository.
+For Docker on Windows Server 2022 see the [rgl/docker-windows-2022-vagrant](https://github.com/rgl/docker-windows-2022-vagrant) repository.
 
 # Usage
 
 Install the [Base Ubuntu 22.04 Box](https://github.com/rgl/ubuntu-vagrant).
 
-Install the [Base Windows Server 2019 Box](https://github.com/rgl/windows-vagrant).
+Install the [Base Windows Server 2022 Box](https://github.com/rgl/windows-vagrant).
 
 Install the required plugins:
 
@@ -34,11 +34,11 @@ vagrant ssh windows
 Test executing a `nanoserver` container with `ctr`:
 
 ```powershell
-ctr image pull mcr.microsoft.com/windows/nanoserver:1809
-ctr run --cni --rm mcr.microsoft.com/windows/nanoserver:1809 test cmd /c ver
-ctr run --cni --rm mcr.microsoft.com/windows/nanoserver:1809 test cmd /c set
-ctr run --cni --rm mcr.microsoft.com/windows/nanoserver:1809 test ipconfig /all
-ctr run --cni --rm mcr.microsoft.com/windows/nanoserver:1809 test curl https://httpbin.org/user-agent
+ctr image pull mcr.microsoft.com/windows/nanoserver:ltsc2022
+ctr run --cni --rm mcr.microsoft.com/windows/nanoserver:ltsc2022 test cmd /c ver
+ctr run --cni --rm mcr.microsoft.com/windows/nanoserver:ltsc2022 test cmd /c set
+ctr run --cni --rm mcr.microsoft.com/windows/nanoserver:ltsc2022 test ipconfig /all
+ctr run --cni --rm mcr.microsoft.com/windows/nanoserver:ltsc2022 test curl https://httpbin.org/user-agent
 ```
 
 Test executing a multi-platform image container with `ctr`:
@@ -51,11 +51,11 @@ ctr run --cni --rm docker.io/ruilopes/example-docker-buildx-go:v1.10.0 test
 Test executing a nanoserver container with `nerdctl`:
 
 ```powershell
-nerdctl run --rm mcr.microsoft.com/windows/nanoserver:1809 cmd /c ver
-nerdctl run --rm mcr.microsoft.com/windows/nanoserver:1809 cmd /c set
+nerdctl run --rm mcr.microsoft.com/windows/nanoserver:ltsc2022 cmd /c ver
+nerdctl run --rm mcr.microsoft.com/windows/nanoserver:ltsc2022 cmd /c set
 # NB nerdctl cannot yet connect to the network. see the caveats bellow.
-nerdctl run --rm mcr.microsoft.com/windows/nanoserver:1809 cmd /c ipconfig /all
-nerdctl run --rm mcr.microsoft.com/windows/nanoserver:1809 cmd /c curl https://httpbin.org/user-agent
+nerdctl run --rm mcr.microsoft.com/windows/nanoserver:ltsc2022 cmd /c ipconfig /all
+nerdctl run --rm mcr.microsoft.com/windows/nanoserver:ltsc2022 cmd /c curl https://httpbin.org/user-agent
 ```
 
 Test executing a multi-platform image container with `nerdctl`:
