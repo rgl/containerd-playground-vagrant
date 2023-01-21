@@ -3,7 +3,7 @@ set -euxo pipefail
 
 # see https://github.com/regclient/regclient/releases
 # renovate: datasource=github-releases depName=regclient/regclient
-version='0.4.4'
+version='0.4.5'
 
 for tool in regctl regbot regsync; do
     # download.
