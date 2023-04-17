@@ -4,7 +4,7 @@ set -euxo pipefail
 # download.
 # see https://github.com/opencontainers/runc/releases
 # renovate: datasource=github-releases depName=opencontainers/runc
-runc_version='1.1.4'
+runc_version='1.1.6'
 runc_url="https://github.com/opencontainers/runc/releases/download/v${runc_version}/runc.amd64"
 bin="/tmp/runc-${runc_version}"
 wget -qO $bin "$runc_url"
