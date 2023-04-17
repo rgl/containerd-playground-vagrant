@@ -2,9 +2,9 @@
 
 # download install the binaries.
 # renovate: datasource=github-releases depName=google/go-containerregistry
-$archiveVersion = '0.12.1'
+$archiveVersion = '0.14.0'
 $archiveUrl = "https://github.com/google/go-containerregistry/releases/download/v$archiveVersion/go-containerregistry_Windows_x86_64.tar.gz"
-$archiveHash = '9a6ed649c06dd10ba49acb213abe8cab8bd11f479485745ca8a47a6b6a216386'
+$archiveHash = 'd196c5a1737a0dea37c952e81e5ca0727e21197bd7305f2256b69d4e55c624d0'
 $archiveName = Split-Path -Leaf $archiveUrl
 $archivePath = "$env:TEMP\$archiveName"
 Write-Host "Installing crane $archiveVersion..."
