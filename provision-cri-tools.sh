@@ -4,7 +4,7 @@ set -euxo pipefail
 # download.
 # see https://github.com/kubernetes-sigs/cri-tools/releases
 # renovate: datasource=github-releases depName=kubernetes-sigs/cri-tools
-version='1.25.0'
+version='1.26.1'
 url="https://github.com/kubernetes-sigs/cri-tools/releases/download/v${version}/crictl-v${version}-linux-amd64.tar.gz"
 tgz="/tmp/cri-tools-${version}.tgz"
 wget -qO $tgz "$url"
