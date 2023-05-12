@@ -1,6 +1,6 @@
 # About
 
-This is a containerd on Ubuntu and Windows Server 2022 Vagrant environment for playing with Windows containers.
+This is a containerd on Ubuntu and Windows Server 2022 Vagrant environment for playing with Linux and Windows containers.
 
 For Docker on Windows Server 2022 see the [rgl/docker-windows-2022-vagrant](https://github.com/rgl/docker-windows-2022-vagrant) repository.
 
