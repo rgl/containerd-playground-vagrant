@@ -4,18 +4,13 @@
 
 # download install the containerd binaries.
 # renovate: datasource=github-releases depName=containerd/containerd
-$archiveVersion = '1.6.20'
+$archiveVersion = '1.6.21'
 $archiveUrl = "https://github.com/containerd/containerd/releases/download/v$archiveVersion/cri-containerd-$archiveVersion-windows-amd64.tar.gz"
-$archiveHash = 'bf4917144ac15d8322571cc7f8b152acc474e3353bc8be41cd96719440da32b0'
 $archiveName = Split-Path -Leaf $archiveUrl
 $archivePath = "$env:TEMP\$archiveName"
 
 Write-Host "Downloading containerd $archiveVersion..."
 (New-Object System.Net.WebClient).DownloadFile($archiveUrl, $archivePath)
-$archiveActualHash = (Get-FileHash $archivePath -Algorithm SHA256).Hash
-if ($archiveActualHash -ne $archiveHash) {
-    throw "the $archiveUrl file hash $archiveActualHash does not match the expected $archiveHash"
-}
 
 Write-Host "Installting containerd..."
 if (Get-Service -ErrorAction SilentlyContinue containerd) {

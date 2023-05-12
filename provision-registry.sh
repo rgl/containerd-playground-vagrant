@@ -72,7 +72,7 @@ EOF
 #      see https://github.com/containerd/nerdctl/issues/945
 #      see https://github.com/containerd/containerd/pull/6744
 #      see https://github.com/containerd/containerd/blob/v1.7.0/runtime/restart/restart.go  # has unless-stopped.
-#      see https://github.com/containerd/containerd/blob/v1.6.20/runtime/restart/restart.go # but 1.6.20 does not.
+#      see https://github.com/containerd/containerd/blob/v1.6.21/runtime/restart/restart.go # but 1.6.21 does not.
 echo "starting the registry $registry_url..."
 install -d -m 700 /opt/registry/data
 nerdctl pull --quiet "$registry_image"
