@@ -5,8 +5,8 @@ registry_domain="${1:-registry.test}"; shift || true
 registry_host="$registry_domain:5000"
 registry_url="https://$registry_host"
 # renovate: datasource=docker depName=registry
-registry_image_version='2.8.1'
-registry_image='registry:2.8.1' # see https://hub.docker.com/_/registry
+registry_image_version='2.8.2'
+registry_image='registry:2.8.2' # see https://hub.docker.com/_/registry
 registry_username='vagrant'
 registry_password='vagrant'
 
@@ -36,7 +36,7 @@ echo -n 'http secret' >/opt/registry/secrets/http
 # create the configuration file.
 # NB this configures the registry to allow any url in the pushed manifests.
 #    see https://github.com/rgl/infra-toolbox/commit/28c2703f437b4ae4feb103948fea68ff8b02ca45
-# see https://github.com/distribution/distribution/blob/v2.8.1/docs/configuration.md
+# see https://github.com/distribution/distribution/blob/v2.8.2/docs/configuration.md
 install -d /opt/registry/etc
 cat >/opt/registry/etc/config.yml <<EOF
 version: 0.1
