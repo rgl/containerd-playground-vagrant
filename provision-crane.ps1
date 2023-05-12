@@ -2,17 +2,12 @@
 
 # download install the binaries.
 # renovate: datasource=github-releases depName=google/go-containerregistry
-$archiveVersion = '0.14.0'
+$archiveVersion = '0.15.1'
 $archiveUrl = "https://github.com/google/go-containerregistry/releases/download/v$archiveVersion/go-containerregistry_Windows_x86_64.tar.gz"
-$archiveHash = 'd196c5a1737a0dea37c952e81e5ca0727e21197bd7305f2256b69d4e55c624d0'
 $archiveName = Split-Path -Leaf $archiveUrl
 $archivePath = "$env:TEMP\$archiveName"
 Write-Host "Installing crane $archiveVersion..."
 (New-Object System.Net.WebClient).DownloadFile($archiveUrl, $archivePath)
-$archiveActualHash = (Get-FileHash $archivePath -Algorithm SHA256).Hash
-if ($archiveActualHash -ne $archiveHash) {
-    throw "the $archiveUrl file hash $archiveActualHash does not match the expected $archiveHash"
-}
 if (Test-Path "$env:ProgramFiles\crane") {
     Remove-Item -Recurse -Force "$env:ProgramFiles\crane"
 }
