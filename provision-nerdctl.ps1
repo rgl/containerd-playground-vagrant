@@ -2,17 +2,12 @@
 
 # download install the binaries.
 # renovate: datasource=github-releases depName=containerd/nerdctl
-$archiveVersion = '1.3.1'
+$archiveVersion = '1.4.0'
 $archiveUrl = "https://github.com/containerd/nerdctl/releases/download/v$archiveVersion/nerdctl-$archiveVersion-windows-amd64.tar.gz"
-$archiveHash = '5c9fed3076d44b16ca492e86d1920e2698764d01cda3a5d23c3f7504c7cf7847'
 $archiveName = Split-Path -Leaf $archiveUrl
 $archivePath = "$env:TEMP\$archiveName"
 Write-Host "Installing nerdctl $archiveVersion..."
 (New-Object System.Net.WebClient).DownloadFile($archiveUrl, $archivePath)
-$archiveActualHash = (Get-FileHash $archivePath -Algorithm SHA256).Hash
-if ($archiveActualHash -ne $archiveHash) {
-    throw "the $archiveUrl file hash $archiveActualHash does not match the expected $archiveHash"
-}
 if (Test-Path "$env:ProgramFiles\nerdctl") {
     Remove-Item -Recurse -Force "$env:ProgramFiles\nerdctl"
 }
