@@ -1,5 +1,5 @@
 #!/bin/bash
-source /vagrant/lib.sh
+set -euo pipefail
 
 domain=$1
 ca_file_name='example-ca'
