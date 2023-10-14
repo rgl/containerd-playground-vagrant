@@ -10,6 +10,9 @@ VM_WINDOWS_MEMORY_MB = 5*1024
 VM_LINUX_CPUS   = 4
 VM_WINDOWS_CPUS = 4
 
+VM_LINUX_DISK_SIZE_GB   = 64
+VM_WINDOWS_DISK_SIZE_GB = 64
+
 VM_LINUX_IP_ADDRESS   = "10.0.0.3"
 VM_WINDOWS_IP_ADDRESS = "10.0.0.4"
 
@@ -64,6 +67,7 @@ Vagrant.configure("2") do |config|
     config.vm.provider "libvirt" do |lv, config|
       lv.memory = VM_LINUX_MEMORY_MB
       lv.cpus = VM_LINUX_CPUS
+      lv.machine_virtual_size = VM_LINUX_DISK_SIZE_GB
       config.vm.synced_folder ".", "/vagrant", type: "nfs", nfs_version: "4.2", nfs_udp: false
     end
     config.vm.provider "hyperv" do |hv, config|
@@ -97,6 +101,7 @@ Vagrant.configure("2") do |config|
     config.vm.provider "libvirt" do |lv, config|
       lv.memory = VM_WINDOWS_MEMORY_MB
       lv.cpus = VM_WINDOWS_CPUS
+      lv.machine_virtual_size = VM_WINDOWS_DISK_SIZE_GB
     end
     config.vm.provider "hyperv" do |hv, config|
       hv.memory = VM_WINDOWS_MEMORY_MB
