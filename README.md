@@ -14,9 +14,6 @@ Install the required plugins:
 
 ```bash
 vagrant plugin install vagrant-reload
-# see https://github.com/hashicorp/vagrant/issues/12445#issuecomment-876566065
-export CFLAGS='-I/opt/vagrant/embedded/include/ruby-3.0.0/ruby'
-vagrant plugin install vagrant-hosts
 ```
 
 Then launch the environment:

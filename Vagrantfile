@@ -15,6 +15,10 @@ VM_WINDOWS_IP_ADDRESS = "10.0.0.4"
 
 VM_HYPERV_SWITCH_NAME = "docker-windows"
 
+CONFIG_EXTRA_HOSTS = """
+#{VM_LINUX_IP_ADDRESS} #{CONFIG_REGISTRY_DOMAIN}
+"""
+
 Vagrant.configure("2") do |config|
   config.vm.provider "libvirt" do |lv, config|
     lv.cpu_mode = "host-passthrough"
@@ -54,13 +58,6 @@ Vagrant.configure("2") do |config|
     end
   end
 
-  config.vm.provision "hosts" do |hosts|
-    hosts.autoconfigure = true
-    hosts.sync_hosts = true
-    hosts.add_localhost_hostnames = false
-    hosts.add_host VM_LINUX_IP_ADDRESS, [CONFIG_REGISTRY_DOMAIN]
-  end
-
   config.vm.define :linux do |config|
     config.vm.box = "ubuntu-22.04-amd64"
     config.vm.hostname = "linux"
@@ -79,7 +76,7 @@ Vagrant.configure("2") do |config|
     end
     config.vm.network "private_network", ip: VM_LINUX_IP_ADDRESS, libvirt__forward_mode: "none", libvirt__dhcp_enabled: false, hyperv__bridge: VM_HYPERV_SWITCH_NAME
     config.vm.provision "shell", path: "configure-hyperv-guest.sh", args: [VM_LINUX_IP_ADDRESS]
-    config.vm.provision "shell", path: "provision-base.sh"
+    config.vm.provision "shell", path: "provision-base.sh", args: [CONFIG_EXTRA_HOSTS]
     config.vm.provision "shell", path: "provision-certificate.sh", args: [CONFIG_REGISTRY_DOMAIN]
     config.vm.provision "shell", path: "provision-runc.sh"
     config.vm.provision "shell", path: "provision-cni-plugins.sh"
@@ -117,7 +114,7 @@ Vagrant.configure("2") do |config|
     config.vm.provision "reload"
     config.vm.provision "shell", path: "ps.ps1", args: "provision-certificate.ps1"
     config.vm.provision "shell", path: "ps.ps1", args: "provision-chocolatey.ps1"
-    config.vm.provision "shell", path: "ps.ps1", args: "provision-base.ps1"
+    config.vm.provision "shell", path: "ps.ps1", args: ["provision-base.ps1", CONFIG_EXTRA_HOSTS]
     config.vm.provision "shell", path: "ps.ps1", args: "provision-git.ps1"
     config.vm.provision "shell", path: "ps.ps1", args: "provision-containerd.ps1"
     config.vm.provision "shell", path: "ps.ps1", args: "provision-cri-tools.ps1"

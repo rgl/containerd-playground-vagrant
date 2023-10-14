@@ -2,6 +2,20 @@
 set -euxo pipefail
 
 
+extra_hosts="$1"; shift || true
+
+
+#
+# set the extra hosts.
+
+cat >>/etc/hosts <<EOF
+$extra_hosts
+EOF
+
+
+#
+# prevent apt-get et al from asking questions.
+
 echo 'Defaults env_keep += "DEBIAN_FRONTEND"' >/etc/sudoers.d/env_keep_apt
 chmod 440 /etc/sudoers.d/env_keep_apt
 export DEBIAN_FRONTEND=noninteractive
