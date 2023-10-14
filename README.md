@@ -50,7 +50,6 @@ Test executing a nanoserver container with `nerdctl`:
 ```powershell
 nerdctl run --rm mcr.microsoft.com/windows/nanoserver:ltsc2022 cmd /c ver
 nerdctl run --rm mcr.microsoft.com/windows/nanoserver:ltsc2022 cmd /c set
-# NB nerdctl cannot yet connect to the network. see the caveats bellow.
 nerdctl run --rm mcr.microsoft.com/windows/nanoserver:ltsc2022 cmd /c ipconfig /all
 nerdctl run --rm mcr.microsoft.com/windows/nanoserver:ltsc2022 cmd /c curl https://httpbin.org/user-agent
 ```
@@ -70,8 +69,6 @@ export GITHUB_COM_TOKEN='YOUR_GITHUB_PERSONAL_TOKEN'
 
 # Caveats
 
-* There is no support for networking in `nerdctl` (but there is in `ctr`).
-  * See https://github.com/containerd/nerdctl/issues/559
 * There is no support for building Windows containers because `buildkitd` is not available for Windows.
   * See https://github.com/moby/buildkit/issues/616
 * See all the known Windows issues at https://github.com/containerd/nerdctl/labels/platform%2FWindows.
