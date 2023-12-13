@@ -4,7 +4,7 @@
 
 # download install the containerd binaries.
 # renovate: datasource=github-releases depName=containerd/containerd
-$archiveVersion = '1.7.7'
+$archiveVersion = '1.7.11'
 $archiveUrl = "https://github.com/containerd/containerd/releases/download/v$archiveVersion/cri-containerd-$archiveVersion-windows-amd64.tar.gz"
 $archiveName = Split-Path -Leaf $archiveUrl
 $archivePath = "$env:TEMP\$archiveName"
@@ -26,26 +26,6 @@ if ($LASTEXITCODE) {
     throw "failed to extract $archivePath with exit code $LASTEXITCODE"
 }
 Remove-Item $archivePath
-
-# for ctr to work, symlink c:\etc\cni\net.d and c:\opt\cni\bin to the
-# containerd installation.
-# NB this is required until https://github.com/containerd/go-cni/pull/103 lands in ctr.
-if (Test-Path c:\etc\cni) {
-    Remove-Item -Recurse -Force c:\etc\cni
-}
-mkdir c:\etc\cni | Out-Null
-New-Item -ItemType SymbolicLink `
-    -Path c:\etc\cni\net.d `
-    -Target "$env:ProgramFiles\containerd\cni\conf" `
-    | Out-Null
-if (Test-Path c:\opt\cni) {
-    Remove-Item -Recurse -Force c:\opt\cni
-}
-mkdir c:\opt\cni | Out-Null
-New-Item -ItemType SymbolicLink `
-    -Path c:\opt\cni\bin `
-    -Target "$env:ProgramFiles\containerd\cni\bin" `
-    | Out-Null
 
 # add containerd to the Machine PATH.
 [Environment]::SetEnvironmentVariable(
