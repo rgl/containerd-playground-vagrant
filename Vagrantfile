@@ -85,6 +85,7 @@ Vagrant.configure("2") do |config|
     config.vm.provision "shell", path: "provision-crane.sh"
     config.vm.provision "shell", path: "provision-regctl.sh"
     config.vm.provision "shell", path: "provision-runc.sh"
+    config.vm.provision "shell", path: "provision-containerd-spin.sh"
     config.vm.provision "shell", path: "provision-cni-plugins.sh"
     config.vm.provision "shell", path: "provision-containerd.sh", args: [CONFIG_REGISTRY_DOMAIN]
     config.vm.provision "shell", path: "provision-cri-tools.sh"
@@ -93,6 +94,8 @@ Vagrant.configure("2") do |config|
     config.vm.provision "shell", path: "provision-registry.sh", args: [CONFIG_REGISTRY_DOMAIN]
     config.vm.provision "shell", path: "provision-example-docker-buildx-go-image.sh"
     config.vm.provision "shell", path: "provision-example-docker-buildx-go-container.sh", args: [CONFIG_REGISTRY_DOMAIN]
+    config.vm.provision "shell", path: "provision-spin-http-go-example-container.sh"
+    config.vm.provision "shell", path: "provision-spin-http-ts-example-container.sh"
   end
 
   config.vm.define :windows do |config|
