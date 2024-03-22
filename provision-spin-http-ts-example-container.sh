@@ -3,7 +3,7 @@ set -euxo pipefail
 
 # see https://github.com/rgl/spin-http-ts-example
 # renovate: datasource=docker depName=spin-http-ts-example registryUrl=https://ghcr.io/rgl
-version='0.1.0'
+version='0.3.0'
 image="ghcr.io/rgl/spin-http-ts-example:$version"
 
 echo "crictl: pulling the example image $image"
