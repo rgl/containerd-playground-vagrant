@@ -128,6 +128,7 @@ Vagrant.configure("2") do |config|
     config.vm.provision "shell", path: "ps.ps1", args: "provision-regctl.ps1"
     config.vm.provision "shell", path: "ps.ps1", args: "provision-containerd.ps1"
     config.vm.provision "shell", path: "ps.ps1", args: "provision-cri-tools.ps1"
+    config.vm.provision "shell", path: "ps.ps1", args: "provision-buildkit.ps1"
     config.vm.provision "shell", path: "ps.ps1", args: "provision-nerdctl.ps1"
     config.vm.provision "shell", path: "ps.ps1", args: ["provision-registry-login.ps1", CONFIG_REGISTRY_DOMAIN]
     config.vm.provision "shell", path: "ps.ps1", args: ["provision-example-docker-buildx-go-container.ps1", CONFIG_REGISTRY_DOMAIN]
