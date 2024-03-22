@@ -4,7 +4,7 @@ set -euxo pipefail
 registry_domain="${1:-registry.test}"; shift || true
 registry_host="$registry_domain:5000"
 # renovate: datasource=docker depName=ruilopes/example-docker-buildx-go
-source_image_version='1.10.0'
+source_image_version='1.11.0'
 source_image="docker.io/ruilopes/example-docker-buildx-go:v$source_image_version"
 image="$registry_host/ruilopes/example-docker-buildx-go:v$source_image_version"
 
