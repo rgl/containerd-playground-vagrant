@@ -4,7 +4,7 @@ set -euxo pipefail
 # download.
 # see https://github.com/moby/buildkit/releases
 # renovate: datasource=github-releases depName=moby/buildkit
-buildkit_version='0.13.1'
+buildkit_version='0.14.1'
 buildkit_url="https://github.com/moby/buildkit/releases/download/v${buildkit_version}/buildkit-v${buildkit_version}.linux-amd64.tar.gz"
 tgz='/tmp/buildkit.tgz'
 wget -qO $tgz "$buildkit_url"
