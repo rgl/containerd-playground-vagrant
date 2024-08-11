@@ -2,7 +2,7 @@
 
 # download install the binaries.
 # renovate: datasource=github-releases depName=regclient/regclient
-$version = '0.6.1'
+$version = '0.7.1'
 if (Test-Path "$env:ProgramFiles\regctl") {
     Remove-Item -Recurse -Force "$env:ProgramFiles\regctl"
 }
