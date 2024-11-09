@@ -4,7 +4,7 @@
 
 # download install the containerd binaries.
 # renovate: datasource=github-releases depName=containerd/containerd
-$archiveVersion = '1.7.20'
+$archiveVersion = '1.7.23'
 $archiveUrl = "https://github.com/containerd/containerd/releases/download/v$archiveVersion/cri-containerd-$archiveVersion-windows-amd64.tar.gz"
 $archiveName = Split-Path -Leaf $archiveUrl
 $archivePath = "$env:TEMP\$archiveName"
