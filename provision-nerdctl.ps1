@@ -2,7 +2,7 @@
 
 # download install the binaries.
 # renovate: datasource=github-releases depName=containerd/nerdctl
-$archiveVersion = '1.7.7'
+$archiveVersion = '2.0.0'
 $archiveUrl = "https://github.com/containerd/nerdctl/releases/download/v$archiveVersion/nerdctl-$archiveVersion-windows-amd64.tar.gz"
 $archiveName = Split-Path -Leaf $archiveUrl
 $archivePath = "$env:TEMP\$archiveName"
