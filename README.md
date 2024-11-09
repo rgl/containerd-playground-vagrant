@@ -41,8 +41,8 @@ ctr run --cni --rm mcr.microsoft.com/windows/nanoserver:ltsc2022 test curl https
 Test executing a multi-platform image container with `ctr`:
 
 ```powershell
-ctr image pull docker.io/ruilopes/example-docker-buildx-go:v1.11.0
-ctr run --cni --rm docker.io/ruilopes/example-docker-buildx-go:v1.11.0 test
+ctr image pull docker.io/ruilopes/example-docker-buildx-go:v1.12.0
+ctr run --cni --rm docker.io/ruilopes/example-docker-buildx-go:v1.12.0 test
 ```
 
 Test executing a nanoserver container with `nerdctl`:
@@ -57,7 +57,7 @@ nerdctl run --rm mcr.microsoft.com/windows/nanoserver:ltsc2022 cmd /c curl https
 Test executing a multi-platform image container with `nerdctl`:
 
 ```powershell
-nerdctl run --rm ruilopes/example-docker-buildx-go:v1.11.0
+nerdctl run --rm ruilopes/example-docker-buildx-go:v1.12.0
 ```
 
 List this repository dependencies (and which have newer versions):
