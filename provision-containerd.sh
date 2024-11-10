@@ -12,7 +12,7 @@ registry_url="https://$registry_host"
 # see https://github.com/containerd/containerd/blob/main/docs/ops.md
 # see https://github.com/containerd/containerd/blob/main/containerd.service
 # renovate: datasource=github-releases depName=containerd/containerd
-containerd_version='1.7.23'
+containerd_version='2.0.0'
 containerd_url="https://github.com/containerd/containerd/releases/download/v${containerd_version}/containerd-${containerd_version}-linux-amd64.tar.gz"
 containerd_service_url="https://github.com/containerd/containerd/raw/v${containerd_version}/containerd.service"
 tgz="/tmp/containerd-${containerd_version}.tgz"
@@ -42,7 +42,7 @@ install -d /etc/containerd
 containerd config default >/etc/containerd/config.toml
 cat >>/etc/containerd/config.toml <<EOF
 
-[plugins."io.containerd.grpc.v1.cri".containerd.runtimes.spin]
+[plugins."io.containerd.cri.v1.runtime".containerd.runtimes.spin]
   runtime_type = "io.containerd.spin.v2"
 EOF
 
