@@ -3,4 +3,11 @@
 $chocolateyVersion = '2.4.3'
 $env:chocolateyVersion = $chocolateyVersion
 
-Invoke-Expression (New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1')
+function Install-Chocolatey {
+    [Diagnostics.CodeAnalysis.SuppressMessage('PSAvoidUsingInvokeExpression', '')]
+    param()
+
+    Invoke-Expression (New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1')
+}
+
+Install-Chocolatey
