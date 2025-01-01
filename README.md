@@ -67,6 +67,12 @@ export GITHUB_COM_TOKEN='YOUR_GITHUB_PERSONAL_TOKEN'
 ./renovate.sh
 ```
 
+Lint the source code:
+
+```bash
+./mega-linter.sh
+```
+
 # Caveats
 
 * There is no support for building Windows containers because `buildkitd` is not available for Windows.
