@@ -14,7 +14,7 @@ trap {
 }
 
 # bail when not running over hyperv.
-$systemVendor = (Get-WmiObject Win32_ComputerSystemProduct Vendor).Vendor
+$systemVendor = (Get-CimInstance Win32_ComputerSystemProduct).Vendor
 if ($systemVendor -ne 'Microsoft Corporation') {
     Exit 0
 }
