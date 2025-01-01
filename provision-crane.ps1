@@ -2,7 +2,7 @@
 
 # download install the binaries.
 # renovate: datasource=github-releases depName=google/go-containerregistry
-$archiveVersion = '0.20.3'
+$archiveVersion = '0.20.5'
 $archiveUrl = "https://github.com/google/go-containerregistry/releases/download/v$archiveVersion/go-containerregistry_Windows_x86_64.tar.gz"
 $archiveName = Split-Path -Leaf $archiveUrl
 $archivePath = "$env:TEMP\$archiveName"
