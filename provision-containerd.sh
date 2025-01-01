@@ -1,10 +1,6 @@
 #!/bin/bash
 set -euxo pipefail
 
-registry_domain="${1:-registry.test}"; shift || true
-registry_host="$registry_domain:5000"
-registry_url="https://$registry_host"
-
 # download.
 # see https://github.com/containerd/containerd/releases
 # see https://github.com/containerd/containerd/blob/main/docs/getting-started.md

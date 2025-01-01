@@ -87,7 +87,7 @@ Vagrant.configure("2") do |config|
     config.vm.provision "shell", path: "provision-runc.sh"
     config.vm.provision "shell", path: "provision-containerd-spin.sh"
     config.vm.provision "shell", path: "provision-cni-plugins.sh"
-    config.vm.provision "shell", path: "provision-containerd.sh", args: [CONFIG_REGISTRY_DOMAIN]
+    config.vm.provision "shell", path: "provision-containerd.sh"
     config.vm.provision "shell", path: "provision-cri-tools.sh"
     config.vm.provision "shell", path: "provision-buildkit.sh"
     config.vm.provision "shell", path: "provision-nerdctl.sh"

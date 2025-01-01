@@ -6,7 +6,7 @@ registry_host="$registry_domain:5000"
 registry_url="https://$registry_host"
 # renovate: datasource=docker depName=registry
 registry_image_version='2.8.3'
-registry_image='registry:2.8.3' # see https://hub.docker.com/_/registry
+registry_image="registry:$registry_image_version" # see https://hub.docker.com/_/registry
 registry_username='vagrant'
 registry_password='vagrant'
 
