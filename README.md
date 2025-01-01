@@ -4,7 +4,7 @@ This is a containerd on Ubuntu and Windows Server 2022 Vagrant environment for p
 
 For Docker on Windows Server 2022 see the [rgl/docker-windows-2022-vagrant](https://github.com/rgl/docker-windows-2022-vagrant) repository.
 
-# Usage
+## Usage
 
 Install the [Base Ubuntu 22.04 Box](https://github.com/rgl/ubuntu-vagrant).
 
@@ -73,17 +73,17 @@ Lint the source code:
 ./mega-linter.sh
 ```
 
-# Caveats
+## Caveats
 
 * There is no support for building Windows containers because `buildkitd` is not available for Windows.
   * See https://github.com/moby/buildkit/issues/616
 * See all the known Windows issues at https://github.com/containerd/nerdctl/labels/platform%2FWindows.
 
-# Troubleshoot
+## Troubleshoot
 
 * See the [Microsoft Troubleshooting guide](https://docs.microsoft.com/en-us/virtualization/windowscontainers/troubleshooting) and the [CleanupContainerHostNetworking](https://github.com/MicrosoftDocs/Virtualization-Documentation/tree/live/windows-server-container-tools/CleanupContainerHostNetworking) page.
 
-# References
+## References
 
 * [Tech Community Windows Server Containers News](https://techcommunity.microsoft.com/t5/containers/bg-p/Containers)
 * [Using Insider Container Images](https://docs.microsoft.com/en-us/virtualization/windowscontainers/quick-start/using-insider-container-images)
