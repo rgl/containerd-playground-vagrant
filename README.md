@@ -76,8 +76,8 @@ Lint the source code:
 ## Caveats
 
 * There is no support for building Windows containers because `buildkitd` is not available for Windows.
-  * See https://github.com/moby/buildkit/issues/616
-* See all the known Windows issues at https://github.com/containerd/nerdctl/labels/platform%2FWindows.
+  * See [moby/buildkit#616](https://github.com/moby/buildkit/issues/616).
+* See [all the known nerdctl Windows issues](https://github.com/containerd/nerdctl/labels/platform%2FWindows).
 
 ## Troubleshoot
 
