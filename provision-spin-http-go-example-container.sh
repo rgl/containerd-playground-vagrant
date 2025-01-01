@@ -31,19 +31,19 @@ pod_id="$(crictl runp \
   --runtime spin \
   cri-spin-http-go-example.pod.yml)"
 web_ctr_id="$(crictl create \
-  $pod_id \
+  "$pod_id" \
   cri-spin-http-go-example.web.ctr.yml \
   cri-spin-http-go-example.pod.yml)"
-crictl start $web_ctr_id
-web_ctr_url="http://$(crictl inspectp $pod_id | jq -r .status.network.ip)"
+crictl start "$web_ctr_id"
+web_ctr_url="http://$(crictl inspectp "$pod_id" | jq -r .status.network.ip)"
 
 echo "crictl: accessing the example container endpoint $web_ctr_url"
 while ! wget -qO/dev/null "$web_ctr_url"; do sleep 1; done
 wget -qO- "$web_ctr_url"
 
 echo "crictl: stopping the example container $image"
-crictl stopp $pod_id
-crictl rmp $pod_id
+crictl stopp "$pod_id"
+crictl rmp "$pod_id"
 rm -rf /var/log/cri/cri-spin-http-go-example
 
 echo "crictl: removing the example image $image"

@@ -13,8 +13,8 @@ registry_password='vagrant'
 # copy certificate.
 install -d -m 700 /opt/registry
 install -d -m 700 /opt/registry/secrets
-cp /vagrant/shared/tls/example-ca/$registry_domain-crt.pem /opt/registry/secrets/crt.pem
-cp /vagrant/shared/tls/example-ca/$registry_domain-key.pem /opt/registry/secrets/key.pem
+install "/vagrant/shared/tls/example-ca/$registry_domain-crt.pem" /opt/registry/secrets/crt.pem
+install "/vagrant/shared/tls/example-ca/$registry_domain-key.pem" /opt/registry/secrets/key.pem
 
 # create the registry user.
 install -d -m 700 /opt/registry
@@ -93,15 +93,15 @@ while ! wget -q --spider --user "$registry_username" --password "$registry_passw
 
 # login into the registry.
 echo "logging in the registry..."
-nerdctl login $registry_host --username "$registry_username" --password-stdin <<EOF
+nerdctl login "$registry_host" --username "$registry_username" --password-stdin <<EOF
 $registry_password
 EOF
 
 # dump the registry configuration.
 container_name="registry"
 echo "registry version:"
-nerdctl exec $container_name registry --version
+nerdctl exec "$container_name" registry --version
 echo "registry environment variables:"
-nerdctl exec $container_name env
+nerdctl exec "$container_name" env
 echo "registry config:"
-nerdctl exec $container_name cat /etc/docker/registry/config.yml
+nerdctl exec "$container_name" cat /etc/docker/registry/config.yml
