@@ -6,9 +6,9 @@ For Docker on Windows Server 2022 see the [rgl/docker-windows-2022-vagrant](http
 
 ## Usage
 
-Install the [Base Ubuntu 22.04 Box](https://github.com/rgl/ubuntu-vagrant).
+Install the [Base Ubuntu 22.04 UEFI Box](https://github.com/rgl/ubuntu-vagrant).
 
-Install the [Base Windows Server 2022 Box](https://github.com/rgl/windows-vagrant).
+Install the [Base Windows Server 2022 UEFI Box](https://github.com/rgl/windows-vagrant).
 
 Install the required plugins:
 

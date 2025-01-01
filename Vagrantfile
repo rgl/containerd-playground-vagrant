@@ -62,7 +62,7 @@ Vagrant.configure("2") do |config|
   end
 
   config.vm.define :linux do |config|
-    config.vm.box = "ubuntu-22.04-amd64"
+    config.vm.box = "ubuntu-22.04-uefi-amd64"
     config.vm.hostname = "linux"
     config.vm.provider "libvirt" do |lv, config|
       lv.memory = VM_LINUX_MEMORY_MB
@@ -99,7 +99,7 @@ Vagrant.configure("2") do |config|
   end
 
   config.vm.define :windows do |config|
-    config.vm.box = "windows-2022-amd64"
+    config.vm.box = "windows-2022-uefi-amd64"
     config.vm.hostname = "windows"
     config.vm.provider "libvirt" do |lv, config|
       lv.memory = VM_WINDOWS_MEMORY_MB
