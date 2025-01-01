@@ -2,7 +2,7 @@
 # see https://github.com/moby/buildkit/blob/master/docs/windows.md
 
 # renovate: datasource=github-releases depName=moby/buildkit
-$version = '0.21.1'
+$version = '0.22.0'
 $archiveUrl = "https://github.com/moby/buildkit/releases/download/v$version/buildkit-v$version.windows-amd64.tar.gz"
 $archiveName = Split-Path -Leaf $archiveUrl
 $archivePath = "$env:TEMP\$archiveName"
@@ -84,10 +84,10 @@ Push-Location $bkktt
 #    thou, buildkit supports that extended syntax like heredoc, it actually
 #    supports whatever Dockerfile frontend syntax version is shipped with a
 #    given buildkit version, so YMMV. for example,
-#       https://github.com/moby/buildkit/releases/tag/v0.21.1
+#       https://github.com/moby/buildkit/releases/tag/v0.22.0
 #    ships with:
 #       https://github.com/moby/buildkit/releases/tag/dockerfile%2F1.15.1
-# NB as of buildkit 0.21.1, a RUN with heredoc, although it actually sends the
+# NB as of buildkit 0.22.0, a RUN with heredoc, although it actually sends the
 #    data to the default shell, but since cmd.exe does not support multiline
 #    strings, things like:
 #       cmd /S /C exit /b 0\nexit /b 1\n
