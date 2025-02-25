@@ -22,6 +22,9 @@ EOF
 tar xf $tgz -C /usr/local/bin
 rm -f $tgz
 
+# install the bash completion script.
+crictl completion bash >/usr/share/bash-completion/completions/crictl
+
 # try.
 crictl --version # the client side version.
 crictl version   # the server side version.
