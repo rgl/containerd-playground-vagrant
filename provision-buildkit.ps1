@@ -2,7 +2,7 @@
 # see https://github.com/moby/buildkit/blob/master/docs/windows.md
 
 # renovate: datasource=github-releases depName=moby/buildkit
-$version = '0.17.1'
+$version = '0.20.0'
 $archiveUrl = "https://github.com/moby/buildkit/releases/download/v$version/buildkit-v$version.windows-amd64.tar.gz"
 $archiveName = Split-Path -Leaf $archiveUrl
 $archivePath = "$env:TEMP\$archiveName"
