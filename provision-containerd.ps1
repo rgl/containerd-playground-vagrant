@@ -4,15 +4,15 @@
 
 # download install the containerd binaries.
 # renovate: datasource=github-releases depName=containerd/containerd
-$archiveVersion = '2.0.0'
-$archiveUrl = "https://github.com/containerd/containerd/releases/download/v$archiveVersion/cri-containerd-$archiveVersion-windows-amd64.tar.gz"
+$archiveVersion = '2.0.2'
+$archiveUrl = "https://github.com/containerd/containerd/releases/download/v$archiveVersion/containerd-$archiveVersion-windows-amd64.tar.gz"
 $archiveName = Split-Path -Leaf $archiveUrl
 $archivePath = "$env:TEMP\$archiveName"
 
 Write-Host "Downloading containerd $archiveVersion..."
 (New-Object System.Net.WebClient).DownloadFile($archiveUrl, $archivePath)
 
-Write-Host "Installting containerd..."
+Write-Host "Installing containerd..."
 if (Get-Service -ErrorAction SilentlyContinue containerd) {
     Stop-Service containerd
     sc.exe delete containerd | Out-Null
@@ -30,10 +30,10 @@ Remove-Item $archivePath
 # add containerd to the Machine PATH.
 [Environment]::SetEnvironmentVariable(
     'PATH',
-    "$([Environment]::GetEnvironmentVariable('PATH', 'Machine'));$env:ProgramFiles\containerd",
+    "$([Environment]::GetEnvironmentVariable('PATH', 'Machine'));$env:ProgramFiles\containerd\bin",
     'Machine')
 # add containerd to the current process PATH.
-$env:PATH += ";$env:ProgramFiles\containerd"
+$env:PATH += ";$env:ProgramFiles\containerd\bin"
 
 # configure.
 Write-Host 'Configuring containerd...'
@@ -41,33 +41,22 @@ containerd config default `
     | Out-String `
     | Out-File -NoNewline -Encoding ascii "$env:ProgramFiles\containerd\config.toml"
 
-# configure the cni nat network to route via the vagrant management interface.
-Write-Host 'Configuring the cni nat network...'
-$masterNetAdapter = @(Get-NetAdapter -Physical | Sort-Object Name | Get-NetIPAddress)[0]
-$master = $masterNetAdapter.InterfaceAlias
-$subnet = "172.16.0.0/16"
-$gateway = "172.16.0.1"
-Write-Host "Creating the nat network $subnet (via $master)..."
-Set-Content -NoNewline -Encoding ascii -Path "$env:ProgramFiles\containerd\cni\conf\0-containerd-nat.conf" -Value @"
-{
-    "cniVersion": "0.2.0",
-    "name": "nat",
-    "type": "nat",
-    "master": "$master",
-    "ipam": {
-        "subnet": "$subnet",
-        "routes": [
-            {
-                "gateway": "$gateway"
-            }
-        ]
-    },
-    "capabilities": {
-        "portMappings": true,
-        "dns": true
-    }
+# install the windows cni binaries.
+# see https://github.com/microsoft/windows-container-networking
+# renovate: datasource=github-releases depName=microsoft/windows-container-networking
+$archiveVersion = '0.3.1'
+$archiveUrl = "https://github.com/microsoft/windows-container-networking/releases/download/v$archiveVersion/windows-container-networking-cni-amd64-v$archiveVersion.zip"
+$archiveName = Split-Path -Leaf $archiveUrl
+$archivePath = "$env:TEMP\$archiveName"
+Write-Host "Downloading windows cni $archiveVersion..."
+(New-Object System.Net.WebClient).DownloadFile($archiveUrl, $archivePath)
+Write-Host "Installing windows cni..."
+mkdir "$env:ProgramFiles\containerd\cni\bin" -Force | Out-Null
+tar xf $archivePath --strip-components=0 -C "$env:ProgramFiles\containerd\cni\bin"
+if ($LASTEXITCODE) {
+    throw "failed to extract $archivePath with exit code $LASTEXITCODE"
 }
-"@
+Remove-Item $archivePath
 
 # install the containerd service.
 Write-Host 'Installing the containerd service...'
