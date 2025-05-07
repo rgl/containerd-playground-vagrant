@@ -1,6 +1,11 @@
 {
     "cSpell.words": [
+        "buildctl",
+        "buildkit",
+        "buildkitd",
         "containerd",
-        "LASTEXITCODE"
+        "LASTEXITCODE",
+        "ltsc",
+        "nanoserver"
     ]
 }

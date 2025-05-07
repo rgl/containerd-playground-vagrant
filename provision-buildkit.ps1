@@ -78,9 +78,28 @@ if (Test-Path $bkktt) {
 }
 mkdir $bkktt | Out-Null
 Push-Location $bkktt
+# NB the syntax syntax=docker.io/docker/dockerfile:1.15 is supported, the
+#    container image is not available for windows:
+#       failed to resolve source metadata for docker.io/docker/dockerfile:1.15: no match for platform in manifest: not found
+#    thou, buildkit supports that extended syntax like heredoc, it actually
+#    supports whatever Dockerfile frontend syntax version is shipped with a
+#    given buildkit version, so YMMV. for example,
+#       https://github.com/moby/buildkit/releases/tag/v0.21.1
+#    ships with:
+#       https://github.com/moby/buildkit/releases/tag/dockerfile%2F1.15.1
+# NB as of buildkit 0.21.1, a RUN with heredoc, although it actually sends the
+#    data to the default shell, but since cmd.exe does not support multiline
+#    strings, things like:
+#       cmd /S /C exit /b 0\nexit /b 1\n
+#    it ends up only executing the first line... so in practice it does not
+#    work, and you should not use heredoc in a RUN instruction.
 Set-Content -Encoding ascii Dockerfile @'
+# NB the nanoserver default shell is cmd /S /C.
 FROM mcr.microsoft.com/windows/nanoserver:ltsc2022
-RUN echo 'buildkit build: Hello World!'
+RUN <<EOF
+echo buildkit build: Hello World!
+exit /b 1
+EOF
 '@
 buildctl build `
     --progress plain `

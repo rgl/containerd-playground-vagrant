@@ -69,10 +69,15 @@ buildctl --version
 bkktt='/tmp/buildkit-kick-the-tires'
 rm -rf $bkktt && mkdir $bkktt
 pushd $bkktt
-cat >Dockerfile <<'EOF'
-FROM busybox
-RUN echo 'buildkit build: Hello World!'
+cat >Dockerfile <<'EOF_DOCKERFILE'
+# syntax=docker.io/docker/dockerfile:1.15
+FROM debian:12-slim
+RUN <<EOF
+#!/bin/bash
+set -euxo pipefail
+echo 'buildkit build: Hello World!'
 EOF
+EOF_DOCKERFILE
 buildctl build \
   --progress plain \
   --frontend dockerfile.v0 \
