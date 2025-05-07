@@ -44,3 +44,22 @@ nerdctl version
 
 Write-Title 'nerdctl info'
 nerdctl info
+
+# kick the tires.
+# NB you can see all the networks with nerdctl network ls.
+# NB nerdctl build requires the buildkit service to be running.
+$ncktt = 'c:/tmp/nerdctl-kick-the-tires'
+if (Test-Path $ncktt) {
+    Remove-Item -Recurse -Force $ncktt
+}
+mkdir $ncktt | Out-Null
+Push-Location $ncktt
+Set-Content -Encoding ascii Dockerfile @'
+FROM mcr.microsoft.com/windows/nanoserver:ltsc2022
+RUN echo nerdctl build: Hello World!
+'@
+nerdctl build --progress plain --tag ncktt --file Dockerfile .
+nerdctl inspect ncktt
+nerdctl run --rm ncktt cmd /c echo 'nerdctl run: Hello World!'
+nerdctl image rm ncktt
+Pop-Location

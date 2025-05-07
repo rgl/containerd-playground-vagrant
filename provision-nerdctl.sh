@@ -26,6 +26,7 @@ nerdctl completion bash >/usr/share/bash-completion/completions/nerdctl
 
 # kick the tires.
 # NB you can see all the networks with nerdctl network ls.
+# NB nerdctl build requires the buildkit service to be running.
 nerdctl build --progress plain --tag ncktt --file - . <<'EOF'
 FROM busybox
 RUN echo 'nerdctl build: Hello World!'
